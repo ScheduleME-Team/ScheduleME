@@ -1,18 +1,18 @@
 <html>
 <head>
-<title>Calendar</title>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<style>
-h1 {
-font-size:3em;
-text-align:center;
-color:orange;
-}
+    <title>Calendar</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style>
+        h1 {
+            font-size:3em;
+            text-align:center;
+            color:orange;
+        }
 
-text.active {
-background-color: yellow;
-}
-</style>
+        text.active {
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
 <h1 id = "month"></h1>
@@ -22,33 +22,33 @@ var height = window.innerHeight - 300;
 var colors = [];
 
 var startHour = 8;
-var numHours = 13;
+var numHours = 10;
 
 var hours = [];
 
-for(var i = 0; i < 13; i++) {
-var hour = (startHour + i)%12;
-if(hour == 0)
-hour = 12;
-hours.push(hour + ":00");
-hours.push(hour + ":30");
+for(var i = 0; i < numHours; i++) {
+    var hour = (startHour + i)%12;
+    if(hour == 0)
+        hour = 12;
+    hours.push(hour + ":00");
+    hours.push(hour + ":30");
 }
 
 console.log(hours);
 
 function Shift(startTime, endTime, employee) {
-this.endIndex = endTime;
-this.endTime = hours[endTime];
-this.startIndex = startTime;
-this.startTime = hours[startTime];
-this.employee = employee;
+    this.endIndex = endTime;
+    this.endTime = hours[endTime];
+    this.startIndex = startTime;
+    this.startTime = hours[startTime];
+    this.employee = employee;
 }
 
 function Day(date) {
-this.date = date;
-this.shifts = [];
-this.employees = [];
-} 
+    this.date = date;
+    this.shifts = [];
+    this.employees = [];
+}
 
 var day = new Date();
 
@@ -59,65 +59,65 @@ var month = day.getMonth();
 var data = [];
 var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function Employee(name) {
-this.name = name;
-this.color;
+    this.name = name;
+    this.color;
 }
 var employees = [new Employee("Jordan"), new Employee("Andrew"), new Employee("Zed"), new Employee("Timmy")];
 
 
 function getRandomColor() {
-var letters = '0123456789ABCDEF'.split('');
-var color = '#';
-for (var i = 0; i < 6; i++ ) {
-color += letters[Math.round(Math.random() * 15)];
-}	
-return color;
-}	
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
 
 for(var i = 0; i < employees.length; i++)
-employees[i].color = getRandomColor();
+    employees[i].color = getRandomColor();
 
 for(var i = 0; i < day.getDay(); i++)
-data.push(null);
+    data.push(null);
 
 while(day.getMonth() == month) {
-var temp = new Date(day.toDateString());
-data.push(new Day(temp));
-day.setDate(day.getDate() + 1);
+    var temp = new Date(day.toDateString());
+    data.push(new Day(temp));
+    day.setDate(day.getDate() + 1);
 }
 
 for(var i = day.getDay(); i < 7; i++)
-data.push(null);
+    data.push(null);
 
 console.log(data);
 
 function getMonthString(month) {
-switch(month) {
-case 0:
-return "January";
-case 1:
-return "February";
-case 2:
-return "March";
-case 3:
-return "April";
-case 4:
-return "May";
-case 5:
-return "June";
-case 6:
-return "July";
-case 7:
-return "August";
-case 8:
-return "September";
-case 9:
-return "October";
-case 10:
-return "November";
-case 11:
-return "December";
-}
+    switch(month) {
+        case 0:
+            return "January";
+        case 1:
+            return "February";
+        case 2:
+            return "March";
+        case 3:
+            return "April";
+        case 4:
+            return "May";
+        case 5:
+            return "June";
+        case 6:
+            return "July";
+        case 7:
+            return "August";
+        case 8:
+            return "September";
+        case 9:
+            return "October";
+        case 10:
+            return "November";
+        case 11:
+            return "December";
+    }
 }
 
 var monthString = getMonthString(month);
@@ -129,345 +129,345 @@ var numRows = data.length/7;
 var cd;
 
 var xScale = d3.scale.linear()
-.domain([0,7])
-.range([0, width])
-.nice();
+        .domain([0,7])
+        .range([0, width])
+        .nice();
 
 var dateYScale = d3.scale.linear()
-.domain([0, numRows])
-.range([0, height])
-.nice();
+        .domain([0, numRows])
+        .range([0, height])
+        .nice();
 
 var dayYScale = d3.scale.linear()
-.domain([0,1])
-.range([0, 60])
-.clamp(true)
-.nice();
+        .domain([0,1])
+        .range([0, 60])
+        .clamp(true)
+        .nice();
 
 var daysOfWeek = d3.select("body").append("svg")
-.attr("width", width)
-.attr("height", 60);
+        .attr("width", width)
+        .attr("height", 60);
 
 var calendar = d3.select("body").append("svg")
-.attr("width", width)
-.attr("height", height);
+        .attr("width", width)
+        .attr("height", height);
 
 var dayRects = daysOfWeek.selectAll("rect")
-.data(weekdays)
-.enter()
-.append("rect");
+        .data(weekdays)
+        .enter()
+        .append("rect");
 
 dayRects.attr("x", function(d, i) {
-return xScale(i);
+    return xScale(i);
 })
-.attr("width", function(d, i) {
-return xScale(i+1) - xScale(i);
-})
-.attr("height", 60)
-.attr("fill", "white")
-.attr("stroke", "brown")
-.attr("stroke-width", 3);
+        .attr("width", function(d, i) {
+            return xScale(i+1) - xScale(i);
+        })
+        .attr("height", 60)
+        .attr("fill", "white")
+        .attr("stroke", "brown")
+        .attr("stroke-width", 3);
 
 
 var dayText = daysOfWeek.selectAll("text")
-.data(weekdays)
-.enter()
-.append("text");
+        .data(weekdays)
+        .enter()
+        .append("text");
 
 dayText.attr("x", function(d,i) {
-return xScale(i + .5);
+    return xScale(i + .5);
 })
-.attr("text-anchor", "middle")
-.attr("font-size", "42px")
-.attr("y", dayYScale(2/3))
-.attr("fill", "orange")
-.text(function(d) {
-return d;
-});
+        .attr("text-anchor", "middle")
+        .attr("font-size", "42px")
+        .attr("y", dayYScale(2/3))
+        .attr("fill", "orange")
+        .text(function(d) {
+            return d;
+        });
 
 
 var dateRects = calendar.selectAll("rect")
-.data(data)
-.enter()
-.append("rect")
-.attr("x", function(d,i) {
-return xScale(i % 7);
-})
-.attr("y", function(d,i) {
-return dateYScale(Math.round(Number(i/7 - .5)));
-})
-.attr("width", function(d, i) {
-return xScale(i % 7 + 1) - xScale(i % 7);
-})
-.attr("height", function(d, i) {
-return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5)));
-})
-.attr("fill", "white")
-.attr("stroke", "brown")
-.attr("stroke-width", 3)
-.on("click", click);
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", function(d,i) {
+            return xScale(i % 7);
+        })
+        .attr("y", function(d,i) {
+            return dateYScale(Math.round(Number(i/7 - .5)));
+        })
+        .attr("width", function(d, i) {
+            return xScale(i % 7 + 1) - xScale(i % 7);
+        })
+        .attr("height", function(d, i) {
+            return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5)));
+        })
+        .attr("fill", "white")
+        .attr("stroke", "brown")
+        .attr("stroke-width", 3)
+        .on("click", click);
 
 var dateText = calendar.selectAll("text")
-.data(data)
-.enter()
-.append("text")
-.attr("x", function(d,i) {
-return xScale(i % 7 + .05);
-})
-.attr("fill", "orange")
-.style("pointer-events", "none")
-.attr("text-anchor", "left")
-.attr("font-size", function() { return height / 400 + "em"; })
-.attr("y", function(d,i) {
-return dateYScale(Math.round(Number(i/7 - .5)) + .2);
-})
-.text(function(d) {
-if(d != null)
-return d.date.getDate();
-});
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", function(d,i) {
+            return xScale(i % 7 + .05);
+        })
+        .attr("fill", "orange")
+        .style("pointer-events", "none")
+        .attr("text-anchor", "left")
+        .attr("font-size", function() { return height / 400 + "em"; })
+        .attr("y", function(d,i) {
+            return dateYScale(Math.round(Number(i/7 - .5)) + .2);
+        })
+        .text(function(d) {
+            if(d != null)
+                return d.date.getDate();
+        });
 
 var zoomXScale = d3.scale.linear()
-.range([0, width])
-.nice();
+        .range([0, width])
+        .nice();
 
 var zoomYScale = d3.scale.linear()
-.range([0, height])
-.nice();
+        .range([0, height])
+        .nice();
 
 
 function dayTween(d, func) {
-var xd = d3.interpolate(xScale.domain(), zoomXScale.domain());
-return function(d,i) {
-return function(t) {
-xScale.domain(xd(t));
-return func(d,i);
-}
-}
+    var xd = d3.interpolate(xScale.domain(), zoomXScale.domain());
+    return function(d,i) {
+        return function(t) {
+            xScale.domain(xd(t));
+            return func(d,i);
+        }
+    }
 }
 
 function dateTween(d, i, func) {
-var xd = d3.interpolate(xScale.domain(), zoomXScale.domain());
-var yd = d3.interpolate(dateYScale.domain(), zoomYScale.domain());
-return function(d,i) {
-return function(t) {
-xScale.domain(xd(t));
-dateYScale.domain(yd(t));
-return func(d,i);
-}
-}
+    var xd = d3.interpolate(xScale.domain(), zoomXScale.domain());
+    var yd = d3.interpolate(dateYScale.domain(), zoomYScale.domain());
+    return function(d,i) {
+        return function(t) {
+            xScale.domain(xd(t));
+            dateYScale.domain(yd(t));
+            return func(d,i);
+        }
+    }
 }
 
 function reverseDayTween(d,func) {
-var xd = d3.interpolate(xScale.domain(), [0,7]);
-return function(d,i) {
-return function(t) {
-xScale.domain(xd(t));
-return func(d,i);
-}
-}
+    var xd = d3.interpolate(xScale.domain(), [0,7]);
+    return function(d,i) {
+        return function(t) {
+            xScale.domain(xd(t));
+            return func(d,i);
+        }
+    }
 }
 
 function reverseDateTween(d, i, func) {
-var xd = d3.interpolate(xScale.domain(), [0, 7]);
-var yd = d3.interpolate(dateYScale.domain(), [0, numRows]);
-return function(d, i) {
-return function(t) {
-xScale.domain(xd(t));
-dateYScale.domain(yd(t));
-return func(d,i);
-}
-}
+    var xd = d3.interpolate(xScale.domain(), [0, 7]);
+    var yd = d3.interpolate(dateYScale.domain(), [0, numRows]);
+    return function(d, i) {
+        return function(t) {
+            xScale.domain(xd(t));
+            dateYScale.domain(yd(t));
+            return func(d,i);
+        }
+    }
 }
 
 
 
 function click(d, i) {
-calendar.select("#employeeBox").remove();
-calendar.select("#hourBox").remove();
-if(cd == d) {
-cd = null;
-dayRects.transition()
-.duration(750)
-.attrTween("x", reverseDayTween(d, function(d,i) { return xScale(i); } ))
-.attrTween("width", reverseDayTween(d, function(d,i) { return xScale(i + 1) - xScale(i); } ));
-dayText.transition()
-.duration(750)
-.attrTween("x", reverseDayTween(d, function(d, i) { return xScale(i + .5); } ));
-dateRects.transition()
-.duration(750)
-.attrTween("width", reverseDateTween(d, i, function(d,i) { return xScale(i % 7 + 1) - xScale(i % 7); } ))
-.attrTween("x", reverseDateTween(d, i, function(d,i) { return xScale(i % 7); } ))
-.attrTween("y", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5))); } ))
-.attrTween("height", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5))); } ));
-dateText.transition()
-.duration(750)
-.attrTween("x", reverseDateTween(d, i, function(d,i) { return xScale(i % 7 + .05); } ))
-.attrTween("y", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + .2); } ))
-.attrTween("font-size", reverseDateTween(d, i, function(d,i) { return height / 400 + "em"; } ))
-.style("fill", "orange");
+    calendar.select("#employeeBox").remove();
+    calendar.select("#hourBox").remove();
+    if(cd == d) {
+        cd = null;
+        dayRects.transition()
+                .duration(750)
+                .attrTween("x", reverseDayTween(d, function(d,i) { return xScale(i); } ))
+                .attrTween("width", reverseDayTween(d, function(d,i) { return xScale(i + 1) - xScale(i); } ));
+        dayText.transition()
+                .duration(750)
+                .attrTween("x", reverseDayTween(d, function(d, i) { return xScale(i + .5); } ));
+        dateRects.transition()
+                .duration(750)
+                .attrTween("width", reverseDateTween(d, i, function(d,i) { return xScale(i % 7 + 1) - xScale(i % 7); } ))
+                .attrTween("x", reverseDateTween(d, i, function(d,i) { return xScale(i % 7); } ))
+                .attrTween("y", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5))); } ))
+                .attrTween("height", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5))); } ));
+        dateText.transition()
+                .duration(750)
+                .attrTween("x", reverseDateTween(d, i, function(d,i) { return xScale(i % 7 + .05); } ))
+                .attrTween("y", reverseDateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + .2); } ))
+                .attrTween("font-size", reverseDateTween(d, i, function(d,i) { return height / 400 + "em"; } ))
+                .style("fill", "orange");
 
-}
-else {
-cd = d;
-var modci = i % 7;
-var ci = i;
+    }
+    else {
+        cd = d;
+        var modci = i % 7;
+        var ci = i;
 
-zoomXScale.domain([d.date.getDay() - .15, d.date.getDay() + 1.15]);
-zoomYScale.domain([Math.round(Number(i/7 - .5)) - .25, Math.round(Number(i/7 - .5)) + 1.25]);
+        zoomXScale.domain([d.date.getDay() - .15, d.date.getDay() + 1.15]);
+        zoomYScale.domain([Math.round(Number(i/7 - .5)) - .25, Math.round(Number(i/7 - .5)) + 1.25]);
 
-dayRects.transition()
-.duration(750)
-.attrTween("x", dayTween(d, function(d,i) { return xScale(i); } ))
-.attrTween("width", dayTween(d, function(d,i) { return xScale(i + 1) - xScale(i); } ));
-dayText.transition()
-.duration(750)
-.attrTween("x", dayTween(d, function(d, i) { 
-if(i > modci)
-return xScale(i + .08);
-else if(i < modci)
-return xScale(i + .92);
-else
-return xScale(i + .5);
-}));
+        dayRects.transition()
+                .duration(750)
+                .attrTween("x", dayTween(d, function(d,i) { return xScale(i); } ))
+                .attrTween("width", dayTween(d, function(d,i) { return xScale(i + 1) - xScale(i); } ));
+        dayText.transition()
+                .duration(750)
+                .attrTween("x", dayTween(d, function(d, i) {
+                    if(i > modci)
+                        return xScale(i + .08);
+                    else if(i < modci)
+                        return xScale(i + .92);
+                    else
+                        return xScale(i + .5);
+                }));
 
-dateRects.transition()
-.duration(750)
-.attrTween("width", dateTween(d, i, function(d,i) { return xScale(i % 7 + 1) - xScale(i % 7); } ))
-.attrTween("x", dateTween(d, i, function(d,i) { return xScale(i % 7); } ))
-.attrTween("y", dateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5))); } ))
-.attrTween("height", dateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5))); } ));
-dateText.transition()
-.duration(750)
-.attrTween("x", dateTween(d, i, function(d,i) { if(i % 7 < modci) return xScale(i % 7 + .94); else return xScale(i % 7 + .01); } ))
-.attrTween("y", dateTween(d, i, function(d,i) { 
-if( Math.round(Number(i/7 - .5)) < Math.round(Number(ci/7 - .5)) ) 
-return dateYScale(Math.round(Number(i/7 - .5)) + .95); 
-else 
-return dateYScale(Math.round(Number(i/7 - .5)) + .1);
-} ))
-.attr("font-size", function() { return height / 200 + "em"; } )
-.style("fill", function(d) { if(d == cd) return "orange"; else return "gray"; });
+        dateRects.transition()
+                .duration(750)
+                .attrTween("width", dateTween(d, i, function(d,i) { return xScale(i % 7 + 1) - xScale(i % 7); } ))
+                .attrTween("x", dateTween(d, i, function(d,i) { return xScale(i % 7); } ))
+                .attrTween("y", dateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5))); } ))
+                .attrTween("height", dateTween(d, i, function(d,i) { return dateYScale(Math.round(Number(i/7 - .5)) + 1) - dateYScale(Math.round(Number(i/7 - .5))); } ));
+        dateText.transition()
+                .duration(750)
+                .attrTween("x", dateTween(d, i, function(d,i) { if(i % 7 < modci) return xScale(i % 7 + .94); else return xScale(i % 7 + .01); } ))
+                .attrTween("y", dateTween(d, i, function(d,i) {
+                    if( Math.round(Number(i/7 - .5)) < Math.round(Number(ci/7 - .5)) )
+                        return dateYScale(Math.round(Number(i/7 - .5)) + .95);
+                    else
+                        return dateYScale(Math.round(Number(i/7 - .5)) + .1);
+                } ))
+                .attr("font-size", function() { return height / 200 + "em"; } )
+                .style("fill", function(d) { if(d == cd) return "orange"; else return "gray"; });
 
-var selected = null;
-var selectedIndex = null;
-var startTime = null;
-var endTime = null;
+        var selected = null;
+        var selectedIndex = null;
+        var startTime = null;
+        var endTime = null;
 
-var employeeBox = calendar.append("g")
-.attr("id", "employeeBox")
-.attr("transform", function() {
-return "translate (" + zoomXScale(modci + .01) + "," + zoomYScale(Math.round(Number(ci/7 - .5)) + .15) + ")";
-});
+        var employeeBox = calendar.append("g")
+                .attr("id", "employeeBox")
+                .attr("transform", function() {
+                    return "translate (" + zoomXScale(modci + .01) + "," + zoomYScale(Math.round(Number(ci/7 - .5)) + .15) + ")";
+                });
 
-employeeBox.append("rect")
-.attr("width", function() { return zoomXScale(modci + .15) - zoomXScale(modci + .01); } )
-.attr("height", function() { return zoomYScale(Math.round(Number(ci/7 - .5)) + .99) - zoomYScale(Math.round(Number(ci/7 - .5)) + .15); } )
-.attr("fill", "white")
-.attr("stroke", "brown")
-.attr("stroke-width", 2);
+        employeeBox.append("rect")
+                .attr("width", function() { return zoomXScale(modci + .15) - zoomXScale(modci + .01); } )
+                .attr("height", function() { return zoomYScale(Math.round(Number(ci/7 - .5)) + .99) - zoomYScale(Math.round(Number(ci/7 - .5)) + .15); } )
+                .attr("fill", "white")
+                .attr("stroke", "brown")
+                .attr("stroke-width", 2);
 
-var boxScale = d3.scale.linear()
-.domain([0, employees.length])
-.range([30, zoomYScale(Math.round(Number(ci/7 - .5)) + .99) - zoomYScale(Math.round(Number(ci/7 - .5)) + .15)]);
+        var boxScale = d3.scale.linear()
+                .domain([0, employees.length])
+                .range([30, zoomYScale(Math.round(Number(ci/7 - .5)) + .99) - zoomYScale(Math.round(Number(ci/7 - .5)) + .15)]);
 
-var employeeText = employeeBox.selectAll("text")
-.data(employees)
-.enter()
-.append("text")
-.attr("y", function(d,i) {
-return boxScale(i);
-})
-.attr("x", "4")
-.attr("fill", function(d,i) { return d.color;})
-.text(function(d) {
-return d.name;
-})
-.style("font-size", 20)
-.attr("font-weight", "bold")
-.style("cursor", "pointer")
-.on("click", function(d, i) {
-selected = d;
-selectedIndex = i;
-employeeText.style("background-color", function(d) {
-if(selected == d)
-return "orange";
-else
-return "white"
-});
-});
+        var employeeText = employeeBox.selectAll("text")
+                .data(employees)
+                .enter()
+                .append("text")
+                .attr("y", function(d,i) {
+                    return boxScale(i);
+                })
+                .attr("x", "4")
+                .attr("fill", function(d,i) { return d.color;})
+                .text(function(d) {
+                    return d.name;
+                })
+                .style("font-size", 20)
+                .attr("font-weight", "bold")
+                .style("cursor", "pointer")
+                .on("click", function(d, i) {
+                    selected = d;
+                    selectedIndex = i;
+                    employeeText.style("background-color", function(d) {
+                        if(selected == d)
+                            return "orange";
+                        else
+                            return "white"
+                    });
+                });
 
-var hourBox = calendar.append("g")
-.attr("id", "hourBox")
-.attr("transform", function() {
-return "translate (" + zoomXScale(modci + .2) + "," + zoomYScale(Math.round(Number(ci/7 - .5)) + .01) + ")";
-});
+        var hourBox = calendar.append("g")
+                .attr("id", "hourBox")
+                .attr("transform", function() {
+                    return "translate (" + zoomXScale(modci + .2) + "," + zoomYScale(Math.round(Number(ci/7 - .5)) + .01) + ")";
+                });
 
-var hourBoxScale = d3.scale.linear()
-.domain([0, hours.length])
-.range([0, zoomYScale(Math.round(Number(ci/7 - .5)) + .98) - zoomYScale(Math.round(Number(ci/7 - .5) + .01))]).nice();
+        var hourBoxScale = d3.scale.linear()
+                .domain([0, hours.length])
+                .range([0, zoomYScale(Math.round(Number(ci/7 - .5)) + .98) - zoomYScale(Math.round(Number(ci/7 - .5) + .01))]).nice();
 
-var hourBoxes = hourBox.selectAll("g").data(hours).enter().append("g")
-.attr("transform", function(d,i) { return "translate (" + 0 + "," + hourBoxScale(i) + ")"; });
-
-
-var shiftScale = d3.scale.linear()
-.domain([0, cd.shifts.length])
-.range([zoomXScale(modci + .25) - zoomXScale(modci + .2), zoomXScale(modci + .99) - zoomXScale(modci + .2)]);
-
-var shiftBoxes = hourBox.selectAll(".shift")
-.data(cd.shifts)
-.enter()
-.append("rect");
-
-shiftBoxes.attr("x", function(d, i) { return shiftScale(i); })
-.attr("y", function(d) { return hourBoxScale(d.startIndex); })
-.attr("width", function(d, i) { return shiftScale(i + 1) - shiftScale(i); })
-.attr("height", function(d) { return hourBoxScale(d.endIndex + 1 - d.startIndex); })
-.style("opacity", .5)
-.style("pointer-events", "none")
-.attr("fill", function(d) { return d.employee.color; });
-
-hourBoxes.append("rect")
-.attr("width", function() { return zoomXScale(modci + .99) - zoomXScale(modci + .2); })
-.attr("height", function(d, i) { return hourBoxScale(i + 1) - hourBoxScale(i); })
-.attr("fill", "white")
-.attr("stroke", "brown")
-.style("pointer-events", "auto")
-.style("cursor", "pointer")
-.on("click", function(d, i) {
-if(selected != null) {
-if(startTime != null) {
-endTime = i;
-cd.shifts.push(new Shift(startTime, endTime, selected));
-cd.employees.push(selected);
-shiftScale.domain([0, cd.shifts.length]);
-shiftBoxes.remove();
-shiftBoxes = hourBox.selectAll(".shift")
-.data(cd.shifts)
-.enter()
-.append("rect")
-.attr("x", function(d, i) { return shiftScale(i); })
-.attr("y", function(d) { return hourBoxScale(d.startIndex); })
-.attr("width", function(d, i) { return shiftScale(i + 1) - shiftScale(i); })
-.attr("height", function(d) { return hourBoxScale(d.endIndex + 1 - d.startIndex); })
-.style("opacity", .5)
-.style("pointer-events", "none")
-.attr("fill", function(d) { return d.employee.color; });
-endTime = null;
-startTime = null;
-}
-else
-startTime = i;
-}
-});
+        var hourBoxes = hourBox.selectAll("g").data(hours).enter().append("g")
+                .attr("transform", function(d,i) { return "translate (" + 0 + "," + hourBoxScale(i) + ")"; });
 
 
-hourBoxes.append("text")
-.text(function(d) { return d; })
-.attr("x", 2)
-.attr("y", function(d, i) { return hourBoxScale(i + .75) - hourBoxScale(i); })
-.attr("fill", "orange");
-}
+        var shiftScale = d3.scale.linear()
+                .domain([0, cd.shifts.length])
+                .range([zoomXScale(modci + .25) - zoomXScale(modci + .2), zoomXScale(modci + .99) - zoomXScale(modci + .2)]);
+
+        var shiftBoxes = hourBox.selectAll(".shift")
+                .data(cd.shifts)
+                .enter()
+                .append("rect");
+
+        shiftBoxes.attr("x", function(d, i) { return shiftScale(i); })
+                .attr("y", function(d) { return hourBoxScale(d.startIndex); })
+                .attr("width", function(d, i) { return shiftScale(i + 1) - shiftScale(i); })
+                .attr("height", function(d) { return hourBoxScale(d.endIndex + 1 - d.startIndex); })
+                .style("opacity", .5)
+                .style("pointer-events", "none")
+                .attr("fill", function(d) { return d.employee.color; });
+
+        hourBoxes.append("rect")
+                .attr("width", function() { return zoomXScale(modci + .99) - zoomXScale(modci + .2); })
+                .attr("height", function(d, i) { return hourBoxScale(i + 1) - hourBoxScale(i); })
+                .attr("fill", "white")
+                .attr("stroke", "brown")
+                .style("pointer-events", "auto")
+                .style("cursor", "pointer")
+                .on("click", function(d, i) {
+                    if(selected != null) {
+                        if(startTime != null) {
+                            endTime = i;
+                            cd.shifts.push(new Shift(startTime, endTime, selected));
+                            cd.employees.push(selected);
+                            shiftScale.domain([0, cd.shifts.length]);
+                            shiftBoxes.remove();
+                            shiftBoxes = hourBox.selectAll(".shift")
+                                    .data(cd.shifts)
+                                    .enter()
+                                    .append("rect")
+                                    .attr("x", function(d, i) { return shiftScale(i); })
+                                    .attr("y", function(d) { return hourBoxScale(d.startIndex); })
+                                    .attr("width", function(d, i) { return shiftScale(i + 1) - shiftScale(i); })
+                                    .attr("height", function(d) { return hourBoxScale(d.endIndex + 1 - d.startIndex); })
+                                    .style("opacity", .5)
+                                    .style("pointer-events", "none")
+                                    .attr("fill", function(d) { return d.employee.color; });
+                            endTime = null;
+                            startTime = null;
+                        }
+                        else
+                            startTime = i;
+                    }
+                });
+
+
+        hourBoxes.append("text")
+                .text(function(d) { return d; })
+                .attr("x", 2)
+                .attr("y", function(d, i) { return hourBoxScale(i + .75) - hourBoxScale(i); })
+                .attr("fill", "orange");
+    }
 }
 
 
