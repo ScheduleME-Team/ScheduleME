@@ -13,7 +13,7 @@ var configDB = require('./config/database.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
-
+module.exports = mongoose;
 require('./config/passport')(passport); // pass passport for configuration
 
 app.configure(function() {

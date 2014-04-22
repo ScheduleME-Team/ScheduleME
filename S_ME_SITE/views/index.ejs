@@ -89,18 +89,23 @@
         <div class="download-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Try ScheduleME Now</h2>
-                    <p>APP DEMO GOES HERE!</p>
-                    
+
+                        <h2><span class="fa fa-lock"></span> Try ScheduleME Now</h2>
+
+                        <p>Login or Register with:</p>
+
+                        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+
                 </div>
-                <div class="col-lg-8 col-lg-offset-2">
+                <!-- This is an implemented and working locla login -->
+               <!-- <div class="col-lg-8 col-lg-offset-2">
                     <div class="col-lg-6">
                         <a href="#login" class="btn btn-default" data-toggle="modal"><span class="fa fa-user"></span> Login </a>
                     </div>
                     <div class="col-lg-6">
                         <a href="#signup"  class="btn btn-default" data-toggle="modal"><span class="fa fa-user"></span> Signup </a>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
@@ -115,6 +120,7 @@
             </div>
         </div>
     </section>
+    <!-- A little extra room on the bottom -->
 
     <!-- Signup popup modal -->
     <div class="modal fade" id="signup" role="dialog">
@@ -131,7 +137,6 @@
                             <h1><span class="fa fa-sign-in"></span> Signup</h1>
 
                             <!-- show any messages that come back with authentication -->
-
 
                             <!-- LOGIN FORM -->
                             <form action="/signup" method="post">
