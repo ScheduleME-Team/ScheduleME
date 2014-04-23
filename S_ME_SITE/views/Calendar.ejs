@@ -182,7 +182,7 @@
 					
 					monthData.push(data);
 					
-					for(var j = firstDay; j < data.length - 7 + lastDay; j++) {
+					for(var j = firstDay; j < data.length - 6 + lastDay; j++) {
 						for(var k = 0; k < shiftDataObject.length; k++) {
 							var tempA = data[j].date;
 							var tempB = shiftDataObject[k];
@@ -513,7 +513,7 @@
 						var monthDataIndex = startDate.getMonth() - today.getMonth() + (startDate.getFullYear() - today.getFullYear()) * 12;
 						var month = startDate.getMonth();
 						var dateIndex = startDate.getDate() - 1 + day;
-						while(startDate.getDate() <= endDate.getDate() || startDate.getMonth() != endDate.getMonth() || startDate.getFullYear() != endDate.getFullYear()) {
+						while(startDate.getTime() <= endDate.getTime()) {
 							if(month != startDate.getMonth()) {
 								monthDataIndex++;
 								month++;
