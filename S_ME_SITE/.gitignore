@@ -13,4 +13,6 @@ results
 
 npm-debug.log
 node_modules
-S_ME_SITE/Server/ScheduleME_Server.js
+
+config/secretDatabase.js
+config/secretAuth.js
