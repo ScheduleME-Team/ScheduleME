@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/easy-node-authentication-local.iml" filepath="$PROJECT_DIR$/.idea/easy-node-authentication-local.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/S_ME_SITE.iml" filepath="$PROJECT_DIR$/.idea/S_ME_SITE.iml" />
     </modules>
   </component>
 </project>
